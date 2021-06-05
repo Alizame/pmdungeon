@@ -17,35 +17,35 @@
         <dependency>
             <groupId>com.badlogicgames.gdx</groupId>
             <artifactId>gdx-backend-lwjgl3</artifactId>
-            <version>1.9.12</version>
+            <version>${gdx.version}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.badlogicgames.gdx</groupId>
             <artifactId>gdx-platform</artifactId>
-            <version>1.9.12</version>
+            <version>${gdx.version}</version>
             <classifier>natives-desktop</classifier>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.badlogicgames.gdx</groupId>
             <artifactId>gdx-box2d-platform</artifactId>
-            <version>1.9.12</version>
+            <version>${gdx.version}</version>
             <classifier>natives-desktop</classifier>
             <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.badlogicgames.gdx</groupId>
+            <artifactId>gdx-freetype-platform</artifactId>
+            <version>${gdx.version}</version>
+            <classifier>natives-desktop</classifier>
+            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>pmdungeon</groupId>
             <artifactId>core</artifactId>
             <version>1.0</version>
             <scope>compile</scope> <!-- gradle: runtime -->
-        </dependency>
-        <dependency>
-            <groupId>com.badlogicgames.gdx</groupId>
-            <artifactId>gdx-freetype-platform</artifactId>
-            <version>1.9.12</version>
-            <classifier>natives-desktop</classifier>
-            <scope>runtime</scope>
         </dependency>
     </dependencies>
 

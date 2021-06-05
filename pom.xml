@@ -33,6 +33,8 @@
     <properties>
         <main.basedir>${project.basedir}</main.basedir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <gdx.version>1.9.12</gdx.version>
     </properties>
 
     <dependencies>
