@@ -15,9 +15,7 @@ import java.lang.reflect.Method;
 import static com.badlogic.gdx.graphics.GL20.GL_COLOR_BUFFER_BIT;
 
 /**
- * Controls the game.
- * Setup for all important objects.
- * Contains Gameloop.
+ * Controls the game. Setup for all important objects. Contains Gameloop.
  */
 public class MainController extends ScreenAdapter {
 
@@ -48,10 +46,12 @@ public class MainController extends ScreenAdapter {
      */
     protected boolean firstFrame = true;
 
-    //if you call a gdx function in setup this will call draw, so this boolean will be used to stop loops of firstFrame
+    // if you call a gdx function in setup this will call draw, so this boolean will
+    // be used to stop loops of firstFrame
     private boolean finishedSetup = false;
 
-    //----------------------------- OWN IMPLEMENTATION -----------------------------
+    // ----------------------------- OWN IMPLEMENTATION
+    // -----------------------------
     protected void setup() {
     }
 
@@ -63,8 +63,8 @@ public class MainController extends ScreenAdapter {
 
     public void onLevelLoad() {
     }
-    //----------------------------- END OWN IMPLEMENTATION --------------------------
-
+    // ----------------------------- END OWN IMPLEMENTATION
+    // --------------------------
 
     /**
      * Setup for the MainController
@@ -80,54 +80,54 @@ public class MainController extends ScreenAdapter {
             setup();
         }
 
-
-        //load first level
-        try {
-            levelController.loadDungeon(new DungeonConverter().dungeonFromJson(Constants.STARTLEVEL));
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
+        if (firstFrame) {
+            // load first level
+            firstFrame = false;
+            try {
+                levelController.loadDungeon(new DungeonConverter().dungeonFromJson(Constants.STARTLEVEL));
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
         }
-        firstFrame = false;
-
     }
 
     /**
-     * Main Gameloop.
-     * Redraws the dungeon and calls all the update methods.
+     * Main Gameloop. Redraws the dungeon and calls all the update methods.
      *
-     * @param delta Time since last loop. (since the PM-Dungeon is frame based, this isn't very useful)
+     * @param delta Time since last loop. (since the PM-Dungeon is frame based, this
+     *              isn't very useful)
      */
     @Override
     public final void render(float delta) {
-        if (firstFrame) this.firstFrame();
+        firstFrame();
 
         beginFrame();
 
-        //clears the screen
+        // clears the screen
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL_COLOR_BUFFER_BIT);
 
-        //need to be called before stuff can be drawn
+        // need to be called before stuff can be drawn
         GameSetup.batch.begin();
 
-        //updates the level
+        // updates the level
         levelController.update();
 
-        //need to be called after stuff has been drawn
+        // need to be called after stuff has been drawn
         GameSetup.batch.end();
 
-        //updates all objects in the dungeon
+        // updates all objects in the dungeon
         entityController.update();
 
-        //updates projectionsmatrix
+        // updates projectionsmatrix
         GameSetup.batch.setProjectionMatrix(camera.combined);
 
-        //updates camera position
+        // updates camera position
         camera.update();
 
-        //updates and draw hud
+        // updates and draw hud
         hud.draw();
         textHUD.draw();
 
@@ -140,10 +140,10 @@ public class MainController extends ScreenAdapter {
      */
     private void setupWorldController() {
         try {
-            //this method will be called every time a new level gets load
+            // this method will be called every time a new level gets load
             Method functionToPass = this.getClass().getMethod("onLevelLoad");
             System.out.println("DEBUG: " + functionToPass);
-            //if you need parameter four your method, add them here
+            // if you need parameter four your method, add them here
             Object[] arguments = new Object[0];
             this.levelController = new LevelController(functionToPass, this, arguments);
         } catch (NoSuchMethodException e) {
@@ -155,7 +155,8 @@ public class MainController extends ScreenAdapter {
      * Setting up the camera.
      */
     private void setupCamera() {
-        camera = new DungeonCamera(null, Constants.VIRTUALHEIGHT * Constants.WIDTH / (float) Constants.HEIGHT, Constants.VIRTUALHEIGHT);
+        camera = new DungeonCamera(null, Constants.VIRTUALHEIGHT * Constants.WIDTH / (float) Constants.HEIGHT,
+                Constants.VIRTUALHEIGHT);
         camera.position.set(0, 0, 0);
         camera.zoom += 1;
         camera.update();

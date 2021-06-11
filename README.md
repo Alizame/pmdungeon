@@ -10,6 +10,14 @@ lang: de-DE
 
 Dieses Dokument liefert einen Einstieg in das PM-Dungeon. Es erläutert die Installation der API und erläutert Ihnen die ersten Schritte, um eigene Inhalte zum Dungeon hinzuzufügen. Es dient als Grundlage für alle weiteren Praktika. Lesen Sie das Dokument daher aufmerksam durch und versuchen Sie sich zusätzlich selbst mit dem Aufbau vertraut zu machen.
 
+## Build jar mit Maven
+
+Die erforderliche jar kann einfach über Maven erstellt werden. Hierfür kann der folgende Befehl genutzt werden:
+```bash
+    mvn package
+```
+Die jar mit allen Abhängigkeiten inkludiert liegt nun unter *"desktop/target/pmdungeon-desktop-jar-with-dependencies.jar"* und kann nach belieben umbenannt werden.
+
 ## Installation
 
 - Laden Sie sich das `pmdungeon.jar` und den `assets`-Ordner mit Texturen und Level-Beschreibungen herunter. Das `pmdungeon.jar` wird Ihnen als API dienen.

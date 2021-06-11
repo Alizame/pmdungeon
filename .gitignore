@@ -121,6 +121,10 @@ gradle-app.setting
 /ios/build/
 /ios-moe/build/
 
+## Maven
+
+*/target/*
+
 ## OS Specific
 .DS_Store
 Thumbs.db
