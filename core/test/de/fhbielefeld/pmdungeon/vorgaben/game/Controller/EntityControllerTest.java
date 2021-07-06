@@ -42,6 +42,13 @@ class EntityControllerTest {
         assertTrue(ec.getList().isEmpty());
     }
 
+    @DisplayName("can not add null")
+    @Test
+    void addEntityNull() {
+        ec.addEntity(null);
+        assertTrue(ec.getList().isEmpty(), "list is emtpy");
+        assertFalse(ec.getList().contains(null), "list doesnt contain null");
+    }
 
     @DisplayName("can add a single entity")
     @Test
