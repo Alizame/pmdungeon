@@ -29,6 +29,12 @@ class EntityControllerTest {
     void initialisable() {
         assertNotNull(ec);
     }
+    
+    @DisplayName("getList returns list")
+    @Test
+    void getList() {
+        assertNotNull(ec.getList());
+    }
 
     @DisplayName("is initially empty")
     @Test
@@ -36,11 +42,12 @@ class EntityControllerTest {
         assertTrue(ec.getList().isEmpty());
     }
 
-    @DisplayName("getList returns list")
+    @DisplayName("can not add null")
     @Test
-    void getList() {
-        assertNotNull(ec.getList());
-        assertTrue(ec.getList() instanceof List);
+    void addEntityNull() {
+        ec.addEntity(null);
+        assertTrue(ec.getList().isEmpty(), "list is emtpy");
+        assertFalse(ec.getList().contains(null), "list doesnt contain null");
     }
 
     @DisplayName("can add a single entity")
