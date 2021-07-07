@@ -5,4 +5,6 @@
 <suppressions>
     <suppress checks="Indentation"
               files=".*\.java"/>
+    <suppress checks="."
+              files="[\\/]dungeonCreator[\\/].*\.java$"/>
 </suppressions>
