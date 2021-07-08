@@ -26,6 +26,13 @@ class LevelControllerTest extends HeadlessSetup {
         cnt += 1;
     }
 
+    private void onLevelLoadPrivate() {
+    }
+
+    public void onLevelLoadException() {
+        throw new NullPointerException();
+    }
+
     @Override
     @BeforeEach
     public void setUp() {
@@ -131,6 +138,44 @@ class LevelControllerTest extends HeadlessSetup {
         lc.update();
 
         assertNotNull(lc.getDungeon(), "next dungeon loaded");
+    }
+
+    @DisplayName("loadDungeon with onLevelLoad() private")
+    @Test
+    void update3() throws NoSuchFieldException, IllegalAccessException {
+        Field f = LevelController.class.getDeclaredField("nextLevelTriggered");
+        f.setAccessible(true);
+        try {
+            Method functionToPass = LevelControllerTest.class.getDeclaredMethod("onLevelLoadPrivate");
+            lc = new LevelController(functionToPass, this, new Object[0]);
+            f.setBoolean(lc, true);
+
+            System.err.println("vvv IllegalAccessException Stacktrace expected vvv");
+            lc.update();
+            System.err.println("^^^ IllegalAccessException Stacktrace expected ^^^");
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+            fail("test broken");
+        }
+    }
+
+    @DisplayName("loadDungeon with onLevelLoad() throwing runtime exception")
+    @Test
+    void update4() throws NoSuchFieldException, IllegalAccessException {
+        Field f = LevelController.class.getDeclaredField("nextLevelTriggered");
+        f.setAccessible(true);
+        try {
+            Method functionToPass = LevelControllerTest.class.getDeclaredMethod("onLevelLoadException");
+            lc = new LevelController(functionToPass, this, new Object[0]);
+            f.setBoolean(lc, true);
+
+            System.err.println("vvv InvocationTargetException Stacktrace expected vvv");
+            lc.update();
+            System.err.println("^^^ InvocationTargetException Stacktrace expected ^^^");
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+            fail("test broken");
+        }
     }
 
 
